@@ -1,43 +1,57 @@
 # 1. Introduction
 ## 1. Use Cases<br/>
-This SDK is for invoking all the API from <a href="http://service.youziku.com">service.youziku.com</a> with Java<br/>
 
-## 2. SDK Working Flow<br/>　
-- Requesting content's subsetted fonts with SDK from the server<br/>
-- The server generates fonts with the four general types(woff、eot、ttf、svg)<br/>
-- The server sends all the font files to the alicloud CDN user specified<br/>
+This SDK is for invoking all the API from [service.youziku.com](http://service.youziku.com) with Java.<br/>
+
+## 2. SDK Workflow<br/>
+
+- Request subsetted fonts from Youziku for content via the SDK<br/>
+- The server generates fonts with the four general types (woff, eot, ttf, svg)<br/>
+- The server sends all the font files to the alicloud CDN specified by the user<br/>
 - Use the fonts with @font-face on the client side<br/>
-## 3.@font-face<br/>
-SDK mainly returns the @font-face, which is well supported by all kinds of browsers for applying fonts on DOM.<br/>
+
+## 3. @font-face<br/>
+
+The SDK returns the `@font-face` CSS value which is well supported by all kinds of browsers for applying fonts on DOM.<br/>
 
 # 2. Environment
-1.jdk 1.6.0_31 or above <br />
-2.Dependencies: <br />
+1. jdk 1.6.0_31 or above <br />
+2. Dependencies: <br />
 　　　commons-httpclient-3.0.1<br />
 　　　commons-logging-1.0.3<br />
 　　　commons-codec-1.2<br />
 　　　fastjson-1.2.5<br />
-
-3.<a href="https://github.com/youziku/youziku-sdk-java/raw/master/sdk下载/sdk.jars.zip">sdk download</a><br />
+3. [sdk download](https://github.com/youziku/youziku-sdk-java/raw/master/sdk下载/sdk.jars.zip)<br />
 
 # 3. Usage
-`import com.youziku.sdk.*;`
+```java
+import com.youziku.sdk.*;
+```
 
 # 4. Sample
-## 1.Init YouzikuServiceClient instance
+## 1. Init `YouzikuServiceClient` instance
+
 ```java
 public static final IYouzikuServiceClient youzikuClent = new YouzikuServiceClient("xxxxxx"); //xxxxxx: user's apikey
 ```
-## 2.Invoke interface(user can choose any of the 5 supported modes)
+
+## 2. Invoke interface (user can choose any of the 5 supported modes)
 ### 2.1. Agile-multi-label woff mode：CreateBatchWoffWebFontAsync()
-#### Note: The third parameter of `CustomPathFontFaceParam` is the Url, which can be used for constructing the font-face, for example: `src:url('http://cdn.webfont.youziku.com/webfonts/custompath/{UserKey}/{Url}.bmp') format('woff')`
+
+#### Note: The third parameter of `CustomPathFontFaceParam` is the Url, which can be used for constructing the font-face, for example: 
+
+```css
+src:url('http://cdn.webfont.youziku.com/webfonts/custompath/{UserKey}/{Url}.bmp') format('woff')
+```
+
 Synchronize mode
 ``` java
 BatchCustomPathWoffFontFaceParam bcpwff2 = new BatchCustomPathWoffFontFaceParam();
-bcpwff2.addData(new CustomPathFontFaceParam("xxx", "有字库，让中文跃上云端！", "youziku/test-1"));//xxx is the accesskey
+bcpwff2.addData(new CustomPathFontFaceParam("xxx", "有字库，让中文跃上云端！", "youziku/test-1"));//xxx is the UserKey
 bcpwff2.addData(new CustomPathFontFaceParam("xxx", "有字库，让前端掌控字体！", "youziku/test-2"));
 BatchCustomPathWoffFontFaceResult result = youzikuClent.getCustomPathBatchWoffWebFont(bcpwff2);
 ```
+
 Asynchronous mode
 ``` java
 BatchCustomPathWoffFontFaceParam bcpwff2 = new BatchCustomPathWoffFontFaceParam();
@@ -55,8 +69,8 @@ youzikuClent.getCustomPathBatchWoffWebFontAsync(bcpwff2,new FontFaceCallBack<Bat
 
 ```
 
-### 2.2 Language-binding-single-label mode：GetFontface()
-#### Note:this mode returns @fontface directly
+### 2.2 Language-binding-single-label mode：`getFontFace()`
+#### Note:this mode returns @font-face directly
 Synchronize mode
 ``` java
 FontFaceResult result = youzikuClent.getFontFace(new FontFaceParam("xxx", "有字库，让中文跃上云端！", "#id1"));
