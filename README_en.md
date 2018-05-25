@@ -47,7 +47,7 @@ src:url('http://cdn.webfont.youziku.com/webfonts/custompath/{UserKey}/{Url}.bmp'
 Synchronize mode
 ``` java
 BatchCustomPathWoffFontFaceParam bcpwff2 = new BatchCustomPathWoffFontFaceParam();
-bcpwff2.addData(new CustomPathFontFaceParam("xxx", "有字库，让中文跃上云端！", "youziku/test-1"));//xxx is the UserKey
+bcpwff2.addData(new CustomPathFontFaceParam("xxx", "有字库，让中文跃上云端！", "youziku/test-1"));//xxx is the accessKey for the font
 bcpwff2.addData(new CustomPathFontFaceParam("xxx", "有字库，让前端掌控字体！", "youziku/test-2"));
 BatchCustomPathWoffFontFaceResult result = youzikuClent.getCustomPathBatchWoffWebFont(bcpwff2);
 ```
